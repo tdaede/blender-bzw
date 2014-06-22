@@ -1,6 +1,20 @@
 import bpy
 from math import pi
 
+def write_transform(f, object):
+    f.write('scale ')
+    for s in object.scale:
+        f.write(str(s) + ' ')
+    f.write('\n')
+    r = object.rotation_euler
+    f.write('spin '+str(r[0]*180/pi)+' 1 0 0\n')
+    f.write('spin '+str(r[1]*180/pi)+' 0 1 0\n')
+    f.write('spin '+str(r[2]*180/pi)+' 0 0 1\n')
+    f.write('shift ')
+    for s in object.location:
+        f.write(str(s) + ' ')
+    f.write('\n')
+
 def write_map(context, filepath, export_as_group):
     print("Exporting BZW map...")
     f = open(filepath, 'w', encoding='utf-8')
@@ -11,18 +25,7 @@ def write_map(context, filepath, export_as_group):
         mesh = object.data
         f.write('mesh\n')
         f.write('name '+object.name+'\n')
-        f.write('scale ')
-        for s in object.scale:
-            f.write(str(s) + ' ')
-        f.write('\n')
-        r = object.rotation_euler
-        f.write('spin '+str(r[0]*180/pi)+' 1 0 0\n')
-        f.write('spin '+str(r[1]*180/pi)+' 0 1 0\n')
-        f.write('spin '+str(r[2]*180/pi)+' 0 0 1\n')
-        f.write('shift ')
-        for s in object.location:
-            f.write(str(s) + ' ')
-        f.write('\n')
+        write_transform(f,object)
         for v in mesh.vertices:
             f.write('vertex ')
             for c in v.co:
