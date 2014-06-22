@@ -2,11 +2,13 @@ import bpy
 from math import pi
 
 def write_transform(f, object):
+    if object.parent != None:
+        write_transform(f,object.parent)
+    r = object.rotation_euler
     f.write('scale ')
     for s in object.scale:
         f.write(str(s) + ' ')
     f.write('\n')
-    r = object.rotation_euler
     f.write('spin '+str(r[0]*180/pi)+' 1 0 0\n')
     f.write('spin '+str(r[1]*180/pi)+' 0 1 0\n')
     f.write('spin '+str(r[2]*180/pi)+' 0 0 1\n')
