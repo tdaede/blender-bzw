@@ -21,12 +21,22 @@ def write_map(context, filepath, export_as_group):
     print("Exporting BZW map...")
     f = open(filepath, 'w', encoding='utf-8')
     f.write("# BZW Exporter by Thomas Daede\n")
+    for mat in bpy.data.materials:
+        f.write('material\n')
+        f.write('name '+mat.name+'\n')
+        f.write('diffuse ')
+        for c in mat.diffuse_color:
+            f.write(str(c)+' ')
+        f.write('1.0\n')
+        f.write('end\n')
     for object in bpy.data.objects:
         if object.type != 'MESH':
             continue
         mesh = object.data
         f.write('mesh\n')
         f.write('name '+object.name+'\n')
+        if len(object.material_slots) >= 1:
+            f.write('matref '+object.material_slots.keys()[0]+'\n')
         write_transform(f,object)
         for v in mesh.vertices:
             f.write('vertex ')
