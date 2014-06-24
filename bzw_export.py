@@ -11,6 +11,9 @@ bl_info = {
     "warning": "", # used for warning icon and text in addons panel
     "wiki_url": "",
     "category": "Import-Export"}
+    
+def format_name(n):
+    return n.replace(' ','_')
 
 def write_transform(f, object):
     if object.parent != None:
@@ -34,7 +37,10 @@ def write_map(context, filepath, export_as_group):
     f.write("# BZW Exporter by Thomas Daede\n")
     for mat in bpy.data.materials:
         f.write('material\n')
-        f.write('name '+mat.name+'\n')
+        f.write('name '+format_name(mat.name)+'\n')
+        if mat.texture_slots[0] != None:
+            texture = mat.texture_slots[0].texture
+            f.write('texture '+texture.image.name+'\n')
         f.write('diffuse ')
         for c in mat.diffuse_color:
             f.write(str(c)+' ')
@@ -47,7 +53,7 @@ def write_map(context, filepath, export_as_group):
         f.write('mesh\n')
         f.write('name '+object.name+'\n')
         if len(object.material_slots) >= 1:
-            f.write('matref '+object.material_slots.keys()[0]+'\n')
+            f.write('matref '+format_name(object.material_slots.keys()[0])+'\n')
         write_transform(f,object)
         for v in mesh.vertices:
             f.write('vertex ')
