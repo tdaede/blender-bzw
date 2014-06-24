@@ -40,7 +40,10 @@ def write_map(context, filepath, export_as_group):
         f.write('name '+format_name(mat.name)+'\n')
         if mat.texture_slots[0] != None:
             texture = mat.texture_slots[0].texture
-            f.write('texture '+texture.image.name+'\n')
+            if 'bz_url' in texture:
+                f.write('texture '+texture['bz_url']+'\n')
+            else:
+                f.write('texture '+texture.image.name+'\n')
         f.write('diffuse ')
         for c in mat.diffuse_color:
             f.write(str(c)+' ')
