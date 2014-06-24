@@ -1,6 +1,17 @@
 import bpy
 from math import pi, degrees
 
+bl_info = {
+    "name": "BZW Export",
+    "description": "Export BZFlag Map Format",
+    "author": "Thomas Daede",
+    "version": (0, 1),
+    "blender": (2, 69, 0),
+    "location": "View3D > Export > BZW",
+    "warning": "", # used for warning icon and text in addons panel
+    "wiki_url": "",
+    "category": "Import-Export"}
+
 def write_transform(f, object):
     if object.parent != None:
         write_transform(f,object.parent)
@@ -94,7 +105,7 @@ class ExportBZWMap(Operator, ExportHelper):
             )
 
     def execute(self, context):
-        return write_some_data(context, self.filepath, self.export_as_group)
+        return write_map(context, self.filepath, self.export_as_group)
 
 
 # Only needed if you want to add into a dynamic menu
