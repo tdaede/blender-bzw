@@ -23,9 +23,9 @@ def write_transform(f, object):
     for s in object.scale:
         f.write(str(s) + ' ')
     f.write('\n')
-    f.write('spin '+str(degrees(r[0]))+' 1 0 0\n')
-    f.write('spin '+str(degrees(r[1]))+' 0 1 0\n')
-    f.write('spin '+str(degrees(r[2]))+' 0 0 1\n')
+    f.write('spin '+"{0:.3f}".format(degrees(r[0]))+' 1 0 0\n')
+    f.write('spin '+"{0:.3f}".format(degrees(r[1]))+' 0 1 0\n')
+    f.write('spin '+"{0:.3f}".format(degrees(r[2]))+' 0 0 1\n')
     f.write('shift ')
     for s in object.location:
         f.write(str(s) + ' ')
