@@ -42,7 +42,7 @@ def write_map(context, filepath, export_as_group):
             texture = mat.texture_slots[0].texture
             if 'bz_url' in texture:
                 f.write('texture '+texture['bz_url']+'\n')
-            else:
+            elif texture.type == 'IMAGE':
                 f.write('texture '+texture.image.name+'\n')
         f.write('diffuse ')
         for c in mat.diffuse_color:
@@ -67,12 +67,11 @@ def write_map(context, filepath, export_as_group):
             for n in v.normal:
                 f.write(str(n) + ' ')
             f.write('\n')
-        if len(object.data.uv_layers) > 0:
-            if object.data.uv_layers[0] != None:
-                for uvco in object.data.uv_layers[0].data:
-                    f.write('texcoord ')
-                    for x in uvco.uv:
-                        f.write(str(x)+' ')
+        if object.data.uv_layers[0] != None:
+            for uvco in object.data.uv_layers[0].data:
+                f.write('texcoord ')
+                for x in uvco.uv:
+                    f.write(str(x)+' ') 
                 f.write('\n')
         for p in mesh.polygons:
             f.write('face\n')
