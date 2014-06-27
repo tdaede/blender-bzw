@@ -61,7 +61,7 @@ def write_map(context, filepath, export_as_group):
         for v in mesh.vertices:
             f.write('vertex ')
             for c in v.co:
-                f.write(str(c) + ' ')
+                f.write("{0:.5f}".format(c) + ' ')
             f.write('\n')
             f.write('normal ')
             for n in v.normal:
