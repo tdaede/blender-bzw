@@ -5,7 +5,7 @@ bl_info = {
     "name": "BZW Export",
     "description": "Export BZFlag Map Format",
     "author": "Thomas Daede",
-    "version": (0, 1),
+    "version": (0, 2),
     "blender": (2, 69, 0),
     "location": "View3D > Export > BZW",
     "warning": "", # used for warning icon and text in addons panel
