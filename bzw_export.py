@@ -5,7 +5,7 @@ bl_info = {
     "name": "BZW Export",
     "description": "Export BZFlag Map Format",
     "author": "Thomas Daede",
-    "version": (0, 2),
+    "version": (0, 3),
     "blender": (2, 69, 0),
     "location": "View3D > Export > BZW",
     "warning": "", # used for warning icon and text in addons panel
@@ -86,10 +86,11 @@ def write_map(context, filepath, export_as_group):
             for v in p.vertices:
                 f.write(str(v) + ' ')
             f.write('\n')
-            f.write('texcoords ')
-            for v in p.loop_indices:
-                f.write(str(v) + ' ')
-            f.write('\n')
+            if len(object.data.uv_layers) > 0:
+                f.write('texcoords ')
+                for v in p.loop_indices:
+                    f.write(str(v) + ' ')
+                f.write('\n')
             f.write('endface\n')
         f.write('end\n')
     f.close()
