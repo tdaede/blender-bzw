@@ -49,7 +49,7 @@ def write_map(context, filepath, export_as_group):
         f.write('diffuse ')
         for c in mat.diffuse_color:
             f.write(str(c)+' ')
-        f.write('1.0\n')
+        f.write(str(mat.alpha)+'\n')
         f.write('end\n')
     for object in bpy.data.objects:
         if object.type != 'MESH':
